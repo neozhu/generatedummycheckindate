@@ -17,11 +17,17 @@ foreach(var row in rows){
         var fieldValue = row.GetType().GetProperty(fieldName).GetValue(row,null);
         if(fieldValue!=null){
             var hours = Convert.ToDouble(fieldValue);
-            var minutes = rd.Next(5,29);
+            if(hours>8 ){
+                hours=hours+2;
+            }else if(hours==8){
+                hours=hours + 1.5;
+            }
+            
+            var minutes = rd.Next(20,29);
             var seconds = rd.Next(0,59);
             var dt1= new DateTime(2022,month,i,8,minutes,seconds);
             var seconds1 = rd.Next(0,59);
-            var minutes1 = rd.Next(0,15);
+            var minutes1 = rd.Next(0,5);
             var dt2=dt1.AddHours(hours).AddMinutes(minutes1).AddSeconds(seconds1);
             var output1=new OutputItem(){
                 Name=row.Name,
