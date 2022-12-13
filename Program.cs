@@ -5,7 +5,7 @@ using MiniExcelLibs.Attributes;
 Console.WriteLine("Hello, World!");
 var path= Directory.GetCurrentDirectory();
 var input=System.IO.Path.Combine(path,"input","11月考勤.xlsx");
-var output=System.IO.Path.Combine(path,"output","output-11月考勤.xlsx");
+var output=System.IO.Path.Combine(path,"output","output-11月考勤-1.xlsx");
 var rows = MiniExcel.Query<InputItem>(input).ToList();
 var rd = new Random();
 var month=11;
