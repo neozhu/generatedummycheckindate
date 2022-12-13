@@ -33,6 +33,7 @@ foreach(var row in rows){
                 Name=row.Name,
                 WorkNo=row.WorkNo,
                 Supply=row.Supply,
+                SupplyId=row.SupplyId,
                 Department=row.Department,
                 Job=row.Job,
                 Date1 = dt1.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -41,6 +42,7 @@ foreach(var row in rows){
                 Name=row.Name,
                 WorkNo=row.WorkNo,
                 Supply=row.Supply,
+                SupplyId=row.SupplyId,
                 Department=row.Department,
                 Job=row.Job,
                 Date1 = dt2.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -63,6 +65,8 @@ public class InputItem{
     public string? Name{get;set;}
     [ExcelColumnName("供方")]
     public string? Supply{get;set;}
+    [ExcelColumnName("供方ID")]
+    public string? SupplyId{get;set;}
     [ExcelColumnName("部门")]
     public string? Department{get;set;}
     [ExcelColumnName("岗位")]
@@ -134,7 +138,6 @@ public class InputItem{
    
 }
 
-
 public class OutputItem{
 public string? Id{get;set;}
     [ExcelColumnName("工号")]
@@ -143,6 +146,8 @@ public string? Id{get;set;}
     public string? Name{get;set;}
     [ExcelColumnName("供方")]
     public string? Supply{get;set;}
+    [ExcelColumnName("供方ID")]
+    public string? SupplyId{get;set;}
     [ExcelColumnName("部门")]
     public string? Department{get;set;}
     [ExcelColumnName("岗位")]
