@@ -4,11 +4,11 @@ using MiniExcelLibs.Attributes;
 
 Console.WriteLine("Hello, World!");
 var path= Directory.GetCurrentDirectory();
-var input=System.IO.Path.Combine(path,"input","11月考勤.xlsx");
-var output=System.IO.Path.Combine(path,"output","output-11月考勤-1.xlsx");
+var input=System.IO.Path.Combine(path,"input","12月工时.xlsx");
+var output=System.IO.Path.Combine(path,"output","output-12月工时-1.xlsx");
 var rows = MiniExcel.Query<InputItem>(input).ToList();
 var rd = new Random();
-var month=11;
+var month=12;
 Console.WriteLine(rows.Count);
 var ouputList = new List<OutputItem>(); //
 foreach(var row in rows){
