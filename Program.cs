@@ -17,18 +17,46 @@ foreach(var row in rows){
         var fieldValue = row.GetType().GetProperty(fieldName).GetValue(row,null);
         if(fieldValue!=null){
             var hours = Convert.ToDouble(fieldValue);
-            if(hours>8 ){
-                hours=hours+2;
-            }else if(hours==8){
-                hours=hours + 1.5;
-            }
-            
             var minutes = rd.Next(20,29);
             var seconds = rd.Next(0,59);
             var dt1= new DateTime(2022,month,i,8,minutes,seconds);
-            var seconds1 = rd.Next(0,59);
-            var minutes1 = rd.Next(0,5);
-            var dt2=dt1.AddHours(hours).AddMinutes(minutes1).AddSeconds(seconds1);
+
+            var seconds1 = rd.Next(0,40);
+            var minutes1 = rd.Next(31,36);
+            var dt2=new DateTime(2022,month,i,17,minutes1,seconds1);
+
+           if(hours==10.5){
+                seconds1 = rd.Next(0,60);
+                 minutes1 = rd.Next(31,45);
+                 dt2=new DateTime(2022,month,i,20,minutes1,seconds1);
+            }
+            else if(hours==8) {
+                Console.WriteLine(dt2);
+            }
+            else if(hours==7.5){
+                 seconds1 = rd.Next(0,60);
+                 minutes1 = rd.Next(0,5);
+                 dt2=new DateTime(2022,month,i,17,minutes1,seconds1);
+            }
+            else if(hours>8 ){
+                hours=hours+2;
+                 seconds1 = rd.Next(0,30);
+                 minutes1 = rd.Next(0,2);
+                 dt2=dt1.AddHours(hours).AddMinutes(minutes1).AddSeconds(seconds1);
+            }
+            else if(hours<8 && hours>4){
+                hours=hours + 1.5;
+                seconds1 = rd.Next(0,30);
+                minutes1 = rd.Next(0,2);
+                dt2=dt1.AddHours(hours).AddMinutes(minutes1).AddSeconds(seconds1);
+            }else {
+                seconds1 = rd.Next(0,30);
+                minutes1 = rd.Next(0,2);
+                dt2=dt1.AddHours(hours).AddMinutes(minutes1).AddSeconds(seconds1);
+            }
+            
+            
+            
             var output1=new OutputItem(){
                 Name=row.Name,
                 WorkNo=row.WorkNo,
