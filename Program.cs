@@ -3,15 +3,20 @@ using MiniExcelLibs;
 using MiniExcelLibs.Attributes;
 
 Console.WriteLine("Hello, World!");
-var path= Directory.GetCurrentDirectory();
-var input=System.IO.Path.Combine(path,"input","12月工时.xlsx");
-var output=System.IO.Path.Combine(path,"output","output-12月工时-1.xlsx");
+var path= Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+Console.WriteLine(path);
+
+var input=System.IO.Path.Combine(path,"input","2024.xlsx");
+var output=System.IO.Path.Combine(path,"output","output-2024-1.xlsx");
 var rows = MiniExcel.Query<InputItem>(input).ToList();
 var rd = new Random();
-var month=12;
+var month=2;
+var year=2024;
 Console.WriteLine(rows.Count);
 var ouputList = new List<OutputItem>(); //
-foreach(var row in rows){
+for(int m=2;m<=4;m++){
+foreach(var row in rows.Where(x=>x.Month==m)){
+    month=m;
     for(var i=1;i<=31;i++){
         var fieldName=$"D{i}";
         var fieldValue = row.GetType().GetProperty(fieldName).GetValue(row,null);
@@ -19,16 +24,16 @@ foreach(var row in rows){
             var hours = Convert.ToDouble(fieldValue);
             var minutes = rd.Next(20,29);
             var seconds = rd.Next(0,59);
-            var dt1= new DateTime(2022,month,i,8,minutes,seconds);
+            var dt1= new DateTime(year,month,i,8,minutes,seconds);
 
             var seconds1 = rd.Next(0,40);
             var minutes1 = rd.Next(31,36);
-            var dt2=new DateTime(2022,month,i,17,minutes1,seconds1);
+            var dt2=new DateTime(year,month,i,17,minutes1,seconds1);
 
            if(hours==10.5){
                 seconds1 = rd.Next(0,60);
                  minutes1 = rd.Next(31,45);
-                 dt2=new DateTime(2022,month,i,20,minutes1,seconds1);
+                 dt2=new DateTime(year,month,i,20,minutes1,seconds1);
             }
             else if(hours==8) {
                 Console.WriteLine(dt2);
@@ -36,7 +41,7 @@ foreach(var row in rows){
             else if(hours==7.5){
                  seconds1 = rd.Next(0,60);
                  minutes1 = rd.Next(0,5);
-                 dt2=new DateTime(2022,month,i,17,minutes1,seconds1);
+                 dt2=new DateTime(year,month,i,17,minutes1,seconds1);
             }
             else if(hours>8 ){
                 hours=hours+2;
@@ -81,12 +86,14 @@ foreach(var row in rows){
         }
     }
 }
-
+}
 Console.WriteLine(ouputList.Count);
 MiniExcel.SaveAs(output,ouputList);
 public class InputItem{
     [ExcelColumnName("序号")]
     public string? Id{get;set;}
+    [ExcelColumnName("月份")]
+    public int? Month{get;set;}
     [ExcelColumnName("工号")]
     public string? WorkNo{get;set;}
     [ExcelColumnName("姓名")]
